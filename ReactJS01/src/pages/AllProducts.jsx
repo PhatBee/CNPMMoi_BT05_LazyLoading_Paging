@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import useProducts from '../hooks/useProducts';
+import useProducts from '../hook/useProducts';
 import ProductList from '../components/ProductList';
 
 export default function AllProducts() {

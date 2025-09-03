@@ -23,10 +23,16 @@ export const getUserApi = () => {
     return axios.get(URL_API);
 }
 
-export const fetchPage = ({ category, page, limit }) => {
-    const URL_API = "/v1/api/products";
-    const data = {
-        category, page, limit
-    }
-    return axios.get(URL_API, { params: data });
-}
+export const fetchPage = async ({ category, page, limit }) => {
+const URL_API = "/v1/api/products";
+  const params = { category, page, limit };
+  try {
+    const res = await axios.get(URL_API, { params });
+    console.log("Fetch products raw: ", res);
+    console.log("Fetch products data: ", res.data);
+    return res;
+  } catch (err) {
+    console.error("Fetch products error: ", err);
+    return { products: [], page: 1, limit: 12, totalPages: 0, totalItems: 0 };
+  }
+};

@@ -32,8 +32,12 @@ export default function useProducts(initialCategory = 'all', initialLimit = 12) 
       try {
         const data = await fetchPage({ category, page: currentPage, limit });
         // append for pages > 1, replace for page=1
-        setProducts(prev => (currentPage === 1 ? data.products : [...prev, ...data.products]));
-        setHasMore(currentPage < data.totalPages);
+        setProducts(prev =>
+          currentPage === 1
+            ? data.products
+            : [...prev, ...data.products.filter(p => !prev.some(item => item._id === p._id))]
+        );
+        setHasMore(currentPage < (data.totalPages || 1));
       } catch (err) {
         console.error(err);
         setError(err);
