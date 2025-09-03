@@ -22,3 +22,11 @@ export const getUserApi = () => {
     const URL_API = "/v1/api/user";
     return axios.get(URL_API);
 }
+
+export const fetchPage = ({ category, page, limit }) => {
+    const URL_API = "/v1/api/products";
+    const data = {
+        category, page, limit
+    }
+    return axios.get(URL_API, { params: data });
+}
